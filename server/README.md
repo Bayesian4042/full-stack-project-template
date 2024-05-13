@@ -34,10 +34,22 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 
+## main.ts
+- boostrap function to start application
+- it also has the port on which application will run
+
+## app.controller.ts
+- controller api definition
+
 ## Prisma
-- npm i prisma@5.3.1
-- npx prisma init : to initialize prisma in this project
+- pnpm i --save-dev prisma@5.3.1
+- pnpm prisma init : to initialize prisma in this project
   - it creates prisma folder and schema.prisma file which has database provider and url
-
-
+- generator client: prisma client will be used.
+- data model definition
+- migration : sync database with current prisma schema
+  - pnpm prisma migrate dev --name init: dev command -> track changes in sql commands
+  - pnpm prisma migrate push: without generating sql commands
+  - pnpm prisma migrate deploy: for production
+  
 
