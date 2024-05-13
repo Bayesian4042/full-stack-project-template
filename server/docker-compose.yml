@@ -4,10 +4,8 @@ services:
     container_name: opengig-postgresql
     image: postgres
     restart: always
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: api
+    env_file:
+      - .env
     ports:
       - '5442:5432'
   pgadmin:
