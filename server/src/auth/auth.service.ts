@@ -1,21 +1,22 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
-import { User } from '@prisma/client';
 import { ConfigService } from '@nestjs/config';
 import ms from 'ms';
 import { TokenPayload } from './token-payload.interface';
 import { JwtService } from '@nestjs/jwt';
-
+import { User} from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class AuthService {
     constructor(
         private readonly usersService: UsersService,
         private readonly configService: ConfigService,
         private readonly jwtService: JwtService,
+        private prisma: PrismaService,
     ) { }
 
-    async login(user: User, response: Response) {
+    async login(user: User) {
         const expires = new Date();
 
         expires.setMilliseconds(expires.getMilliseconds() + 
@@ -26,10 +27,13 @@ export class AuthService {
             userId: user.id,
         }
 
-        const token = await this.jwtService.signAsync(tokenPayload);
-
-        return { access_token: token, expires: expires };
-    }
+        return {
+            access_token: await this.jwtService.signAsync(tokenPayload),
+            user: {
+                id: user.id,
+                },
+            }
+    };
 
     async verifyUser(email: string, password: string): Promise<any> {
         try {
@@ -43,5 +47,28 @@ export class AuthService {
             throw new UnauthorizedException("Credentials are invalid.");
         }
     }
+
+    async signup(email: string, password: string, roles: string[]) {
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(password, salt);
+    
+        const newUser = await this.prisma.user.create({
+          data: {
+            email,
+            password: hashedPassword,
+          },
+        });
+    
+        return this.login(newUser);
+      }
+    
+      async getUserFromToken(token: any) {
+        const payload = this.jwtService.verify(token.req.headers.authorization.split(' ')[1]);
+        return this.prisma.user.findUnique({
+          where: {
+            id: payload.userId,
+          },
+        });
+      }
         
 }
