@@ -30,7 +30,17 @@ export class UsersService {
 
     async getUser(filter: Prisma.UserWhereUniqueInput) {
         return this.prismaService.user.findFirstOrThrow({
-            where: filter
+            where: filter,
+        });
+    }
+
+    async getUserById(filter: Prisma.UserWhereUniqueInput) {
+        return this.prismaService.user.findFirstOrThrow({
+            where: filter,
+            select: {
+                id: true,
+                email: true,
+            },
         });
     }
 }

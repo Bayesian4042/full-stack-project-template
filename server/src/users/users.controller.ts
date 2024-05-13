@@ -1,20 +1,18 @@
-import { Body, Controller, Post, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Req, UseGuards, UseInterceptors } from '@nestjs/common';
 import { CreateUserRequest } from './dto/create-user.request';
 import { UsersService } from './users.service';
 import { NoFilesInterceptor } from '@nestjs/platform-express';
+import { AuthGuard } from '@nestjs/passport';
+import { JWTAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }
 
-    @Post()
-    @UseInterceptors(NoFilesInterceptor())
-    createUser(@Body() request: CreateUserRequest) {
-        try {
-            return this.usersService.createUser(request);
-        } catch (error) {
-            console.error(error);
-            return error;
-        }
+    @UseGuards(JWTAuthGuard)
+    @Get('profile')
+    async getUser(@Req() req: any) {
+        const userId = req.user.sub;
+        return await this.usersService.getUserById({ id: userId });
     }
 }
