@@ -5,8 +5,10 @@ import { ConfigService } from '@nestjs/config';
 import ms from 'ms';
 import { TokenPayload } from './token-payload.interface';
 import { JwtService } from '@nestjs/jwt';
-import { User} from '@prisma/client';
+import { users } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
+
+
 @Injectable()
 export class AuthService {
     constructor(
@@ -16,7 +18,7 @@ export class AuthService {
         private prisma: PrismaService,
     ) { }
 
-    async login(user: User) {
+    async login(user: users) {
         const expires = new Date();
 
         expires.setMilliseconds(expires.getMilliseconds() + 
@@ -52,7 +54,7 @@ export class AuthService {
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(password, salt);
     
-        const newUser = await this.prisma.user.create({
+        const newUser = await this.prisma.users.create({
           data: {
             email,
             password: hashedPassword,
@@ -64,7 +66,7 @@ export class AuthService {
     
       async getUserFromToken(token: any) {
         const payload = this.jwtService.verify(token.req.headers.authorization.split(' ')[1]);
-        return this.prisma.user.findUnique({
+        return this.prisma.users.findUnique({
           where: {
             id: payload.userId,
           },
