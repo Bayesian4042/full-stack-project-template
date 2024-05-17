@@ -10,7 +10,7 @@ export class UsersService {
 
     async createUser(data: CreateUserRequest) {
         try {
-            return this.prismaService.user.create({
+            return this.prismaService.users.create({
                 data: {
                     email: data.email,
                     password: await bcrypt.hash(data.password, 10)
@@ -28,14 +28,14 @@ export class UsersService {
 
     }
 
-    async getUser(filter: Prisma.UserWhereUniqueInput) {
-        return this.prismaService.user.findFirstOrThrow({
+    async getUser(filter: Prisma.usersWhereUniqueInput) {
+        return this.prismaService.users.findFirstOrThrow({
             where: filter,
         });
     }
 
-    async getUserById(filter: Prisma.UserWhereUniqueInput) {
-        return this.prismaService.user.findFirstOrThrow({
+    async getUserById(filter: Prisma.usersWhereUniqueInput) {
+        return this.prismaService.users.findFirstOrThrow({
             where: filter,
             select: {
                 id: true,
