@@ -8,7 +8,11 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useLogger(app.get(Logger));
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true}));
+  app.useGlobalPipes(new ValidationPipe({ 
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+  }));
 
   const config = new DocumentBuilder()
     .setTitle('NestJS API')
