@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Req, UseGuards, UseInterceptors } from '@nestjs/common';
-import { CreateUserRequest } from './dto/create-user.request';
+import { CreateUserDto } from './dto/create-user.request';
 import { UsersService } from './users.service';
 import { NoFilesInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@nestjs/passport';

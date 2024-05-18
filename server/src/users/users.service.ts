@@ -1,5 +1,5 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common';
-import { CreateUserRequest } from './dto/create-user.request';
+import { CreateUserDto } from './dto/create-user.request';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { Prisma } from '@prisma/client';
@@ -8,7 +8,7 @@ import { Prisma } from '@prisma/client';
 export class UsersService {
     constructor(private readonly prismaService: PrismaService) { }
 
-    async createUser(data: CreateUserRequest) {
+    async createUser(data: CreateUserDto) {
         try {
             return this.prismaService.users.create({
                 data: {
