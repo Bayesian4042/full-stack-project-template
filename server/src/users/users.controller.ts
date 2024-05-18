@@ -4,8 +4,11 @@ import { UsersService } from './users.service';
 import { NoFilesInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@nestjs/passport';
 import { JWTAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('users')
+@ApiBearerAuth()
+@ApiTags('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }
 
