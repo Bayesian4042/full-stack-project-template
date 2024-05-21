@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Req, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Param, Req, UseGuards, UseInterceptors, Put } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.request';
 import { UsersService } from './users.service';
 import { NoFilesInterceptor } from '@nestjs/platform-express';
