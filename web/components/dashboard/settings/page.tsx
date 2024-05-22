@@ -8,7 +8,7 @@ import { Select } from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import React from 'react'
 
-export const SettingsPage = () => {
+const SettingsPage = () => {
   return (
     <main className="flex-1 bg-gray-100 dark:bg-gray-800 p-6">
           <div className="max-w-4xl mx-auto">
@@ -120,3 +120,5 @@ export const SettingsPage = () => {
         </main>
   )
 }
+
+export default SettingsPage;

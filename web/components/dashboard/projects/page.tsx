@@ -3,8 +3,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge, BriefcaseIcon, CalendarIcon, UserIcon } from 'lucide-react'
 import React from 'react'
 
-export const ProjectPage = () => {
+const ProjectPage = () => {
   return (
+    <>
     <main className="flex-1 bg-gray-100 dark:bg-gray-800 p-6">
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col gap-6">
@@ -98,5 +99,8 @@ export const ProjectPage = () => {
             </div>
           </div>
         </main>
+    </>
   )
 }
+
+export default ProjectPage;

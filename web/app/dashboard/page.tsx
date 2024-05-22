@@ -9,11 +9,11 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Select } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { ProjectPage } from "./components/projects/page"
-import { SettingsPage } from "./components/settings/page"
 import { useState } from "react"
-import Analytics from "./components/analytics/page";
+import Analytics from "../../components/dashboard/analytics/page";
 import withAuth from "../WithAuth";
+import ProjectPage from "@/components/dashboard/projects/page";
+import SettingsPage from "@/components/dashboard/settings/page";
 
 const Dashboard = () => {
   const [tab, setTab] = useState("settings");
