@@ -1,7 +1,7 @@
-import { Project, Scope } from 'ts-morph';
-import { Command } from 'commander';
-import path from 'path';
-import fs from 'fs';
+const fs = require('fs');
+const path = require('path');
+const { Project, SyntaxKind } = require('ts-morph');
+const { Command } = require('commander');
 
 const program = new Command();
 
