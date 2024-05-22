@@ -1,0 +1,57 @@
+name: Deploy Project
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Setting up Node.js for both projects
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # Building and deploying the Next.js frontend
+      - name: Install dependencies for Next.js
+        working-directory: ./web
+        run: npm install
+
+      - name: Build Next.js
+        working-directory: ./web
+        run: npm run build
+
+      - name: Deploy Next.js to Vercel
+        working-directory: ./web
+        run: npx vercel --prod --token ${{ secrets.PRODUCTION_VERCEL_TOKEN }}
+
+      # Building and deploying the NestJS backend
+      - name: Install dependencies for NestJS
+        working-directory: ./server
+        run: npm install
+
+      - name: Generate Prisma client
+        working-directory: ./server
+        run: npx prisma generate
+
+      - name: Build NestJS
+        working-directory: ./server
+        run: npm run build
+
+      - name: Run Prisma migrations (production database)
+        working-directory: ./server
+        run: npx prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: Deploy NestJS to Vercel
+        working-directory: ./server
+        run: npx vercel --prod --token ${{ secrets.PRODUCTION_VERCEL_TOKEN }}
