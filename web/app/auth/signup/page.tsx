@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import createUser from "./create-user";
 
 export default function Component() {
   const [formData, setFormData] = useState({ email: "", password: "" , role: "user"});
@@ -18,25 +19,16 @@ export default function Component() {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
     // Add your login logic here
     setMessage("");
     try {
-        const response = await fetch("/api/create-user", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
+        const dataForm: any = {email: formData.email, password: formData.password};
+
+        const response: any = await createUser(dataForm);
   
-        if (!response.ok) {
-          throw new Error("Something went wrong");
-        }
-  
-        const data = await response.json();
+        const access_token: any = response['access_token'];
+        const user: any = response['user'];
         setMessage("User created successfully!");
-        console.log(data);
       } catch (error) {
         setMessage("Failed to create user");
         console.error(error);
@@ -64,6 +56,9 @@ export default function Component() {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white dark:bg-gray-700 py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={onSubmit}>
+            <div>
+              <p className="text-red-500">{message}</p>
+            </div>
             <div>
               <Label htmlFor="email">Email address</Label>
               <Input
