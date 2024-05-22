@@ -78,19 +78,6 @@ export default function Component() {
               />
             </div>
             <div>
-              <Label htmlFor="role">Role</Label>
-              <select
-                id="role"
-                name="role"
-                className="block w-full py-2 px-3 border border-gray-300 bg-white text-sm rounded-md shadow-sm focus:outline-none sm:text-sm"
-                value={formData.role}
-                onChange={handleChange}
-              >
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-              </select>
-            </div>
-            <div>
               <Button className="w-full" type="submit">
                 Sign in
               </Button>
