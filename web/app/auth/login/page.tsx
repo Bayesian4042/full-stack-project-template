@@ -5,11 +5,12 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import loginUser from "./login-user";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 export default function Component() {
   const [formData, setFormData] = useState({ email: "", password: "" });
-
+  const router = useRouter();
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -26,7 +27,7 @@ export default function Component() {
       const response: any = await loginUser(JSON.stringify(dataForm));
       localStorage.setItem('token', response);
 
-      redirect('/dashboard');
+      router.push('/dashboard');
     } catch (error) {
       console.error(error);
     }
