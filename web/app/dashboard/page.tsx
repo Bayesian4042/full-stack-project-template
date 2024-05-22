@@ -193,4 +193,4 @@ function SettingsIcon(props: any) {
   )
 }
 
-export default withAuth(Dashboard);
+export default Dashboard;
