@@ -8,15 +8,21 @@ import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card }
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Select } from "@/components/ui/select"
-
 import { Checkbox } from "@/components/ui/checkbox"
 import { ProjectPage } from "./components/projects/page"
 import { SettingsPage } from "./components/settings/page"
-import { JSX, useState } from "react"
+import { useState } from "react"
+import Analytics from "./components/analytics/page";
 import withAuth from "../WithAuth";
 
-const Dashboard: () => JSX.Element = () => {
+const Dashboard = () => {
   const [tab, setTab] = useState("settings");
+
+  const logoutUser = () => {
+    localStorage.removeItem('token');
+    window.location.href = '/auth/login';
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
       <header className="bg-gray-900 text-white py-4 px-6 flex items-center justify-between">
@@ -51,11 +57,11 @@ const Dashboard: () => JSX.Element = () => {
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuItem>
+              {/* <DropdownMenuItem>
                 <Link href="#"> Settings </Link>
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
               <DropdownMenuItem>
-                <Link href="#">Logout</Link>
+              <Button className="w-full" onClick={() => logoutUser()}>Logout</Button>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -64,13 +70,13 @@ const Dashboard: () => JSX.Element = () => {
       <div className="flex flex-1">
         <div className="bg-gray-900 text-white p-6 w-64 hidden md:block">
           <nav className="space-y-2">
-            <div className="flex items-center gap-2 rounded-md px-3 py-2 hover:bg-gray-800">
+            {/* <div className="flex items-center gap-2 rounded-md px-3 py-2 hover:bg-gray-800">
               <HomeIcon className="h-5 w-5" />
               <span>Dashboard</span>
-            </div>
+            </div> */}
             <div className="flex items-center gap-2 rounded-md px-3 py-2 hover:bg-gray-800">
               <LineChartIcon className="h-5 w-5" />
-              <span>Analytics</span>
+              <span onClick={() => setTab("analytics")}>Analytics</span>
             </div>
             <div className="flex items-center gap-2 rounded-md px-3 py-2 hover:bg-gray-800" >
               <BriefcaseIcon className="h-5 w-5" />
@@ -82,7 +88,7 @@ const Dashboard: () => JSX.Element = () => {
             </div>
           </nav>
         </div>
-        {tab == "projects" ? <ProjectPage /> : tab == "settings" ? <SettingsPage /> : tab}
+        {tab == "projects" ? <ProjectPage /> : tab == "settings" ? <SettingsPage /> : tab == "analytics" ? <Analytics /> : null}
       </div>
       <footer className="bg-gray-900 text-white py-4 px-6 text-sm">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
