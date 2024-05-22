@@ -12,9 +12,10 @@ import { Select } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { ProjectPage } from "./components/projects/page"
 import { SettingsPage } from "./components/settings/page"
-import { useState } from "react"
+import { JSX, useState } from "react"
+import withAuth from "../WithAuth";
 
-export default function Component() {
+const Dashboard: () => JSX.Element = () => {
   const [tab, setTab] = useState("settings");
   return (
     <div className="flex flex-col min-h-screen">
@@ -185,3 +186,5 @@ function SettingsIcon(props: any) {
     </svg>
   )
 }
+
+export default withAuth(Dashboard);

@@ -13,11 +13,13 @@ async function loginUser(
             "Content-Type": "application/json",
         },
     });
-    
+
     if (!response) {
         return { };
     }
-    return "response";    
+
+    const data = await response.json();
+    return data.access_token;    
 }
 
 export default loginUser;
