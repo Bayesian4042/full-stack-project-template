@@ -7,21 +7,18 @@ import { redirect } from "next/navigation";
 async function createUser(
     formData: any
 ) {
-    const response = await fetch(`${API_URL}/users/register`, {
+    const response = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
-        body: formData,
+        body: JSON.stringify(formData),
+        headers: {
+            "Content-Type": "application/json",
+        },
     });
-    console.log(response);
-    const parsedResponse = response.json();
 
-    
     if (!response.ok) {
-        return { error: getErrorMessage(parsedResponse) };
+        return { error: getErrorMessage(response) };
     }
-    
-    redirect("/");
+    return response;    
 }
 
 export default createUser;
-
-
