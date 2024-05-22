@@ -24,7 +24,7 @@ export default function Component() {
     try {
         const dataForm: any = {email: formData.email, password: formData.password};
 
-        const response: any = await createUser(dataForm);
+        const response: any = await createUser(JSON.stringify(dataForm));
   
         const access_token: any = response['access_token'];
         const user: any = response['user'];

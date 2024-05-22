@@ -2,25 +2,22 @@
 
 import { API_URL } from "@/constants/api";
 import { getErrorMessage } from "@/utils/errorMessages";
-import { redirect } from "next/navigation";
 
-async function createUser(
+async function loginUser(
     formData: any
 ) {
-    const response = await fetch(`${API_URL}/auth/register`, {
+     const response: any = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         body: formData,
         headers: {
             "Content-Type": "application/json",
         },
     });
-
-    if (!response.ok) {
+    
+    if (!response) {
         return { };
     }
     return "response";    
 }
 
-export default createUser;
-
-
+export default loginUser;

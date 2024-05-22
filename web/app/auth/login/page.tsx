@@ -4,6 +4,8 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import loginUser from "./login-user";
+import { redirect } from "next/navigation";
 
 export default function Component() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -16,10 +18,17 @@ export default function Component() {
     }));
   };
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log(formData);
-    // Add your login logic here
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();    
+
+    try {
+      const dataForm: any = {email: formData.email, password: formData.password};
+      const response: any = await loginUser(JSON.stringify(dataForm));
+
+      redirect('/dashboard');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
