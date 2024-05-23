@@ -28,6 +28,7 @@ program
   
   const errors = errorLines
     .map(line => {
+      line = line.replace('<', '').replace('>', '');
       const regex = /(.+):(\d+):(\d+) - error TS\d+: [a-zA-z0-9\s\,]+(\'\w+\')[a-zA-z0-9\s\,\']+(\'\w+\'.) [a-zA-z0-9\s\,\']+(\'\w+\')/;
       const match = line.match(regex);
 
