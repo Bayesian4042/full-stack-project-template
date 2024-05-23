@@ -77,9 +77,17 @@ program
       fs.writeFileSync(resolvedFilePath, lines.join('\n'), 'utf-8');
       console.log(`Replaced '${searchString}' with '${replaceString}' at line ${lineNumber} in file`);
     } else {
-      console.log(`String '${searchString}' not found at line ${lineNumber} in file`);
+      const regex3 = /(\w\_)+: (\w+)/
+      const match3 = targetLine.match(regex3);
+      if (match3) {
+        const [, key, value] = match3;
+        fileContent = fileContent.replace(key, "id")
+        fs.writeFileSync(resolvedFilePath, lines.join('\n'), 'utf-8');
+        console.log(`Replaced '${searchString}' with '${replaceString}' at line ${lineNumber} in file`);
+      } else{
+        console.log(`String '${searchString}' not found at line ${lineNumber} in file`);
+      }
     }
-  
     // Handle property renaming based on suggestion
     // if (error.solution1) {
     //   sourceFile.forEachDescendant(node => {
