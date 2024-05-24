@@ -41,7 +41,7 @@ jobs:
       - name: Deploy Next.js to Vercel
         working-directory: ./web
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TOKEN: DrSXZdNV4uZUlkeUR0wFy94C
         run: npx vercel --prod --token $VERCEL_TOKEN --confirm
 
       # Building and deploying the NestJS backend
@@ -66,5 +66,5 @@ jobs:
       - name: Deploy NestJS to Vercel
         working-directory: ./server
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_TOKEN: DrSXZdNV4uZUlkeUR0wFy94C
         run: npx vercel --prod --token $VERCEL_TOKEN --confirm
