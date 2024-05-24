@@ -60,7 +60,7 @@ jobs:
       - name: Run Prisma migrations (production database)
         working-directory: ./server
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: postgresql://root:root@localhost:5442/api?schema=public
         run: npx prisma migrate deploy
 
       - name: Deploy NestJS to Vercel
