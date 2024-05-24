@@ -1,8 +1,5 @@
-import { Body, Controller, Get, Param, Req, UseGuards, UseInterceptors, Put } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.request';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { NoFilesInterceptor } from '@nestjs/platform-express';
-import { AuthGuard } from '@nestjs/passport';
 import { JWTAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 

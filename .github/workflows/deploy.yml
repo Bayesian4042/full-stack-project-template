@@ -52,16 +52,16 @@ jobs:
       - name: Generate Prisma client
         working-directory: ./server
         run: npx prisma generate
-
-      - name: Build NestJS
-        working-directory: ./server
-        run: npm run build
-
+      
       - name: Run Prisma migrations (production database)
         working-directory: ./server
         env:
           DATABASE_URL: postgresql://root:root@localhost:5442/api?schema=public
         run: npx prisma migrate deploy
+
+      - name: Build NestJS
+        working-directory: ./server
+        run: pnpm run build
 
       - name: Deploy NestJS to Vercel
         working-directory: ./server
