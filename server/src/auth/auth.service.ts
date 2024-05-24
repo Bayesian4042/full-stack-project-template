@@ -5,7 +5,6 @@ import { ConfigService } from '@nestjs/config';
 import ms from 'ms';
 import { TokenPayload } from './token-payload.interface';
 import { JwtService } from '@nestjs/jwt';
-import { users } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from 'src/users/dto/create-user.request';
 import { RegisterUserResponseDto } from './dto/register-user-response';
