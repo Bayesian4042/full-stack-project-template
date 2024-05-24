@@ -42,7 +42,7 @@ jobs:
         working-directory: ./web
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: npx vercel --prod
+        run: npx vercel --prod --token $VERCEL_TOKEN --confirm
 
       # Building and deploying the NestJS backend
       - name: Install dependencies for NestJS
@@ -67,4 +67,4 @@ jobs:
         working-directory: ./server
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: npx vercel --prod
+        run: npx vercel --prod --token $VERCEL_TOKEN --confirm
